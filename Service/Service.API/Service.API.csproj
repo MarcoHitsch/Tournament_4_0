@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+      <RootNamespace>Tournament40.Service.API</RootNamespace>
+      <AssemblyName>Tournament40.Service.API</AssemblyName>
+  </PropertyGroup>
+
+
+</Project>

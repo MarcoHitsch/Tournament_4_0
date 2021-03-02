@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+      <RootNamespace>Tournament40.Service.Core</RootNamespace>
+      <AssemblyName>Tournament40.Service.Core</AssemblyName>
+  </PropertyGroup>
+
+</Project>

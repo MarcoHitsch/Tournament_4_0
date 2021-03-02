@@ -6,4 +6,9 @@
       <AssemblyName>Tournament40.Service.BLL</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Shared.DTO\Shared.DTO.csproj" />
+    <ProjectReference Include="..\Service.DAL\Service.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

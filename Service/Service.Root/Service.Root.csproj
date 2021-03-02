@@ -1,9 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
       <RootNamespace>Tournament40.Service.Root</RootNamespace>
       <AssemblyName>Tournament40.Service.Root</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Shared.DTO\Shared.DTO.csproj" />
+    <ProjectReference Include="..\Service.BLL\Service.BLL.csproj" />
+    <ProjectReference Include="..\Service.Core\Service.Core.csproj" />
+    <ProjectReference Include="..\Service.DAL\Service.DAL.csproj" />
+    <ProjectReference Include="..\Service.SAL\Service.SAL.csproj" />
+  </ItemGroup>
 
 </Project>

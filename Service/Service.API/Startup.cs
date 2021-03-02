@@ -3,14 +3,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Tournament40.Service.Root;
 
 namespace Tournament40.Service.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment currentEnvironment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment currentEnvironment)
         {
             Configuration = configuration;
+            this.currentEnvironment = currentEnvironment;
         }
 
         public IConfiguration Configuration { get; }
@@ -19,6 +23,8 @@ namespace Tournament40.Service.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            DependencyInjection.InjectDependencies(services, this.currentEnvironment.EnvironmentName, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

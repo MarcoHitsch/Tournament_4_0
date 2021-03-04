@@ -7,6 +7,8 @@ namespace Tournament40.Service.DAL
     {
         ITournametRepository Tournaments { get; }
 
+        IPlayerRepository Players { get; }
+
         Task<int> CompleteAsync();
     }
 }

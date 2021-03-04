@@ -8,16 +8,18 @@ namespace Tournament40.Service.DAL
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         public ITournametRepository Tournaments { get; }
+
+        public IPlayerRepository Players { get; }
         
         private readonly TournamentContext dbContext;
 
         private bool disposed;
 
-
         public UnitOfWork(TournamentContext dbContext)
         {
             this.dbContext = dbContext;
             Tournaments = new TournametRepository(dbContext);
+            Players = new PlayerRepository(dbContext);
         }
 
         public Task<int> CompleteAsync()

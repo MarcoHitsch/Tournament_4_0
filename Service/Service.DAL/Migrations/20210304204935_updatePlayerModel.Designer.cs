@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tournament40.Service.DAL;
@@ -9,9 +10,10 @@ using Tournament40.Service.DAL;
 namespace Tournament40.Service.DAL.Migrations
 {
     [DbContext(typeof(TournamentContext))]
-    partial class TournamentContextModelSnapshot : ModelSnapshot
+    [Migration("20210304204935_updatePlayerModel")]
+    partial class updatePlayerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,7 @@ namespace Tournament40.Service.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TournamentId")
+                    b.Property<Guid?>("TournamentId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -83,8 +85,7 @@ namespace Tournament40.Service.DAL.Migrations
                     b.HasOne("Tournament40.Service.DAL.Models.Tournament", "Tournament")
                         .WithMany("Players")
                         .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("AssignedPartner");
 

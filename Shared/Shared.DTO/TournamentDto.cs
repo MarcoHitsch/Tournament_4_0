@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Tournament40.Shared.DTO
 {
@@ -13,5 +12,7 @@ namespace Tournament40.Shared.DTO
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public ICollection<PlayerDto> Players { get; set; }
     }
 }

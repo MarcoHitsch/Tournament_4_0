@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tournament40.Service.DAL;
@@ -9,9 +10,10 @@ using Tournament40.Service.DAL;
 namespace Tournament40.Service.DAL.Migrations
 {
     [DbContext(typeof(TournamentContext))]
-    partial class TournamentContextModelSnapshot : ModelSnapshot
+    [Migration("20210303232806_addedPlayer")]
+    partial class addedPlayer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,7 @@ namespace Tournament40.Service.DAL.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Firstname")

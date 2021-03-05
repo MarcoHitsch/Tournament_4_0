@@ -49,19 +49,28 @@ namespace Tournament40.Service.BLL.Tournaments
                 Id = m.Id,
                 Name = m.Name,
                 StartDate = m.StartDate,
-                EndDate = m.EndDate
+                EndDate = m.EndDate,
             }).ToList();
         }
 
         public async Task<TournamentDto> GetTournamentById(Guid id)
         {
-            var model = await this.unitOfWork.Tournaments.GetAsync(id);
+            var model = await this.unitOfWork.Tournaments.GetTournamentWithPlayers(id);
             return new TournamentDto()
             {
                 Id = model.Id,
                 Name = model.Name,
                 StartDate = model.StartDate,
-                EndDate = model.EndDate
+                EndDate = model.EndDate,
+                Players = model.Players.Select(m => new PlayerDto()
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Firstname = m.Firstname,
+                    Lastname = m.Lastname,
+                    AssignedPartnerId = m.AssignedPartnerId,
+                    TournamentId = m.TournamentId
+                }).ToList()
             };
         }
     }

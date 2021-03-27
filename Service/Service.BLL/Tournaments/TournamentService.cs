@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Tournament40.Service.DAL;
 using Tournament40.Service.DAL.Models;
 using Tournament40.Shared.DTO;
@@ -21,21 +20,17 @@ namespace Tournament40.Service.BLL.Tournaments
     public class TournamentService : ITournamentService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public TournamentService(IUnitOfWork unitOfWork)
+        public TournamentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         public async Task AddNewTournament(TournamentDto inputTournament)
         {
-            var model = new Tournament()
-            {
-                Id = inputTournament.Id,
-                Name = inputTournament.Name,
-                StartDate = inputTournament.StartDate,
-                EndDate = inputTournament.EndDate
-            };
+            var model = this.mapper.Map<Tournament>(inputTournament);
 
             await this.unitOfWork.Tournaments.AddAsync(model);
             await this.unitOfWork.CompleteAsync();
@@ -44,34 +39,15 @@ namespace Tournament40.Service.BLL.Tournaments
         public async Task<List<TournamentDto>> GetAllTournaments()
         {
             var models = await this.unitOfWork.Tournaments.GetAllAsync();
-            return models.Select(m => new TournamentDto()
-            {
-                Id = m.Id,
-                Name = m.Name,
-                StartDate = m.StartDate,
-                EndDate = m.EndDate,
-            }).ToList();
+
+            return this.mapper.Map<List<TournamentDto>>(models);
         }
 
         public async Task<TournamentDto> GetTournamentById(Guid id)
         {
             var model = await this.unitOfWork.Tournaments.GetTournamentWithPlayers(id);
-            return new TournamentDto()
-            {
-                Id = model.Id,
-                Name = model.Name,
-                StartDate = model.StartDate,
-                EndDate = model.EndDate,
-                Players = model.Players.Select(m => new PlayerDto()
-                {
-                    Id = m.Id,
-                    Name = m.Name,
-                    Firstname = m.Firstname,
-                    Lastname = m.Lastname,
-                    AssignedPartnerId = m.AssignedPartnerId,
-                    TournamentId = m.TournamentId
-                }).ToList()
-            };
+
+            return this.mapper.Map<TournamentDto>(model);
         }
     }
 }

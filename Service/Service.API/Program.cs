@@ -1,5 +1,7 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Tournament40.Service.Root;
 
 namespace Tournament40.Service.API
 {
@@ -7,7 +9,16 @@ namespace Tournament40.Service.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                var host = CreateHostBuilder(args).Build();
+                DbStartup.EnsureDatabaseInitialization(host);
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
